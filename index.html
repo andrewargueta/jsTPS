@@ -1,0 +1,767 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Webform for Testing</title>
+
+    <script src = "./src/jtps/jTPS.js"></script>
+    <script src = "./test/demo/Num.js"></script>
+    <script src = "./test/demo/jTPS_Tester.js"></script>
+    <script src = "./test/demo/AddToNum_Transaction.js"></script>
+    <script src = "./test/demo/AndMask_Transaction.js"></script> 
+    <script src = "./test/demo/OrMask_Transaction.js"></script> 
+    <script src = "./test/junit_test_beds/jTPS_Unit_Tests.js" ></script>
+</head>
+
+<body>
+    <div id="testing_webform">
+        <h3 id="testing_heading">Webform for Testing</h3>
+        <a>Current jsTPS:</a>
+        <div id="current_jstps"> --Number of Transactions: --Current Index on Stack: --Current Transaction Stack: </div>
+        <br></br>
+        <div id="num_div">Num: </div>
+        <br></br>
+        <b>Enter a selection into the textfield</b>
+        <br></br>
+        <b>1 --> Add a transaction</b>
+        <br></br>
+        <b>2 --> Undo a transaction</b>
+        <br></br>
+        <b>3 --> Redo a transaction</b>
+        <br></br>
+        <b>4 --> Clear all transactions</b>
+        <br></br>
+        <b>5 --> Reset Num and Transactions</b>
+        <br></br>
+        <input id="user_input" type="number" min="1" max="5" oninput="validity.valid||(value='');" ></input>
+        <button>Quit</button>     
+    </div>
+
+
+    <div id="testing_assertion">
+        <h3 >Assertions for Testing</h3>
+        <div id="assertion_testadd"> 
+            <b>Assertions for Test Add</b>
+            <div id="testing_testadd">
+                <script type="text/javascript">
+                    let testNum = new Num();
+                    let testTPS = new jTPS();
+                    let testAddDiv = document.getElementById("testing_testadd");
+                    let assertionString = "<br> let num = new Num(); </br><br> let tps = new jTPS();</br>";
+                    if(0 === testNum.getNum())
+                        assertionString += "<br>Assertion: num.getNum() === 0: passed &#10003;</br>"
+                    else
+                        assertionString += "<br>Assertion: num.getNum() === 0: failed &#10007;</br>";
+                    testTPS.addTransaction(new AddToNum_Transaction(testNum, 5));
+                    assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 5));</b></br>";
+                    if(5 === testNum.getNum())
+                        assertionString += "<br>Assertion: num.getNum() === 5: passed &#10003;</br>";
+                    else
+                        assertionString += "<br>Assertion: num.getNum() === 5: failed &#10007;</br>";
+                    if(1 === testTPS.getSize())
+                        assertionString += "<br>Assertion: tps.getSize() === 1: passed &#10003;</br>";
+                    else
+                        assertionString += "<br>Assertion: tps.getSize() === 1: failed &#10007;</br>";
+                    if(0 === testTPS.getRedoSize())
+                        assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                    else
+                        assertionString += "<br>Assertion:  tps.getRedoSize(): === 0 failed &#10007;</br>";
+                    if(1 === testTPS.getUndoSize())
+                        assertionString += "<br>Assertion:  tps.getUndoSize() === 1: passed &#10003;</br>";
+                    else
+                        assertionString += "<br>Assertion:  tps.getUndoSize(): === 1: failed &#10007;</br>";
+                    
+                    assertionString += "<br></br>";
+                    testTPS.addTransaction(new AddToNum_Transaction(testNum, 10));
+                    assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 10));</b></br>";
+                    
+                    if(15 === testNum.getNum())
+                        assertionString += "<br>Assertion: num.getNum() === 15: passed &#10003;</br>";
+                    else
+                        assertionString += "<br>Assertion: num.getNum() === 15: failed &#10007;</br>";
+                    if(2 === testTPS.getSize())
+                        assertionString += "<br>Assertion: tps.getSize() === 2: passed &#10003;</br>";
+                    else
+                        assertionString += "<br>Assertion: tps.getSize() === 2: failed &#10007;</br>";
+                    if(0 === testTPS.getRedoSize())
+                        assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                    else
+                        assertionString += "<br>Assertion:  tps.getRedoSize(): === 0 failed &#10007;</br>";
+                    if(2 === testTPS.getUndoSize())
+                        assertionString += "<br>Assertion:  tps.getUndoSize() === 2: passed &#10003;</br>";
+                    else
+                        assertionString += "<br>Assertion:  tps.getUndoSize(): === 2: failed &#10007;</br>";
+                    
+                    assertionString += "<br></br>";
+                    testTPS.addTransaction(new AddToNum_Transaction(testNum, 20));
+                    assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 20));</b></br>";
+
+                    if(35 === testNum.getNum())
+                        assertionString += "<br>Assertion: num.getNum() === 35: passed &#10003;</br>";
+                    else
+                        assertionString += "<br>Assertion: num.getNum() === 35: failed &#10007;</br>";
+                    if(3 === testTPS.getSize())
+                        assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                    else
+                        assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                    if(0 === testTPS.getRedoSize())
+                        assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                    else
+                        assertionString += "<br>Assertion:  tps.getRedoSize(): === 0 failed &#10007;</br>";
+                    if(3 === testTPS.getUndoSize())
+                        assertionString += "<br>Assertion:  tps.getUndoSize() === 3: passed &#10003;</br>";
+                    else
+                        assertionString += "<br>Assertion:  tps.getUndoSize(): === 3: failed &#10007;</br>";
+                    assertionString += "<br></br>";
+                    testAddDiv.innerHTML = assertionString;
+                    </script>
+            </div>
+        </div>
+        <div id="assertion_testandmask"> 
+                <b>Assertions for Test And Mask</b>
+                <div id="testing_testandmask">
+                    <script type="text/javascript">
+                        testNum = new Num();
+                        testTPS = new jTPS();
+                        assertionString = "";
+                        let testAndMaskDiv = document.getElementById("testing_testandmask");
+                        assertionString = "<br> let num = new Num(); </br><br> let tps = new jTPS();</br>";
+                        if(0 === testNum.getNum())
+                            assertionString += "<br>Assertion: num.getNum() === 0: passed &#10003;</br>"
+                        else
+                            assertionString += "<br>Assertion: num.getNum() === 0: failed &#10007;</br>";
+                        testTPS.addTransaction(new AddToNum_Transaction(testNum, 12));
+                        assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 12));</b></br>";
+
+                        testTPS.addTransaction(new AndMask_Transaction(testNum,testNum.getNum(), 4));
+                        assertionString += "<br><b>tps.addTransaction(new AndMask_Transaction(num, num.getNum(), 4));</b></br>";
+
+                        if(4 === testNum.getNum())
+                            assertionString += "<br>Assertion: num.getNum() === 4: passed &#10003;</br>";
+                        else
+                            assertionString += "<br>Assertion: num.getNum() === 4: failed &#10007;</br>";
+                        if(2 === testTPS.getSize())
+                            assertionString += "<br>Assertion: tps.getSize() === 2: passed &#10003;</br>";
+                        else
+                            assertionString += "<br>Assertion: tps.getSize() === 2: failed &#10007;</br>";
+                        testTPS.undoTransaction();
+                        assertionString += "<br><b>tps.undoTransaction();</b></br>";
+
+                        if(12 === testNum.getNum())
+                            assertionString += "<br>Assertion: num.getNum() === 12: passed &#10003;</br>";
+                        else
+                            assertionString += "<br>Assertion: num.getNum() === 12: failed &#10007;</br>";
+                        if(2 === testTPS.getSize())
+                            assertionString += "<br>Assertion: tps.getSize() === 2: passed &#10003;</br>";
+                        else
+                            assertionString += "<br>Assertion: tps.getSize() === 2: failed &#10007;</br>";
+                        if(1 === testTPS.getRedoSize())
+                            assertionString += "<br>Assertion:  tps.getRedoSize() === 1: passed &#10003;</br>";
+                        else
+                            assertionString += "<br>Assertion:  tps.getRedoSize(): === 1: failed &#10007;</br>";
+                        if(1 === testTPS.getUndoSize())
+                            assertionString += "<br>Assertion:  tps.getUndoSize() === 1: passed &#10003;</br>";
+                        else
+                            assertionString += "<br>Assertion:  tps.getUndoSize(): === 1: failed &#10007;</br>";
+                        assertionString += "<br></br>";
+
+                        testAndMaskDiv.innerHTML = assertionString;
+                        </script>
+                </div>
+            </div>
+        <div id="assertion_testormask"> 
+                <b>Assertions for Test Or Mask</b>
+                <div id="testing_testormask">
+                    <script type="text/javascript">
+                            testNum = new Num();
+                            testTPS = new jTPS();
+                            assertionString = "";
+                            let testOrMaskDiv = document.getElementById("testing_testormask");
+                            assertionString = "<br> let num = new Num(); </br><br> let tps = new jTPS();</br>";
+                            if(0 === testNum.getNum())
+                                assertionString += "<br>Assertion: num.getNum() === 0: passed &#10003;</br>"
+                            else
+                                assertionString += "<br>Assertion: num.getNum() === 0: failed &#10007;</br>";
+                            testTPS.addTransaction(new AddToNum_Transaction(testNum, 4));
+                            assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 4));</b></br>";
+    
+                            testTPS.addTransaction(new OrMask_Transaction(testNum,testNum.getNum(), 15));
+                            assertionString += "<br><b>tps.addTransaction(new AndMask_Transaction(num, num.getNum(), 15));</b></br>";
+    
+                            if(15 === testNum.getNum())
+                                assertionString += "<br>Assertion: num.getNum() === 15: passed &#10003;</br>";
+                            else
+                                assertionString += "<br>Assertion: num.getNum() === 15: failed &#10007;</br>";
+                            if(2 === testTPS.getSize())
+                                assertionString += "<br>Assertion: tps.getSize() === 2: passed &#10003;</br>";
+                            else
+                                assertionString += "<br>Assertion: tps.getSize() === 2: failed &#10007;</br>";
+                            testTPS.undoTransaction();
+                            assertionString += "<br><b>tps.undoTransaction();</b></br>";
+    
+                            if(4 === testNum.getNum())
+                                assertionString += "<br>Assertion: num.getNum() === 4: passed &#10003;</br>";
+                            else
+                                assertionString += "<br>Assertion: num.getNum() === 4: failed &#10007;</br>";
+                            if(2 === testTPS.getSize())
+                                assertionString += "<br>Assertion: tps.getSize() === 2: passed &#10003;</br>";
+                            else
+                                assertionString += "<br>Assertion: tps.getSize() === 2: failed &#10007;</br>";
+                            if(1 === testTPS.getRedoSize())
+                                assertionString += "<br>Assertion:  tps.getRedoSize() === 1: passed &#10003;</br>";
+                            else
+                                assertionString += "<br>Assertion:  tps.getRedoSize(): === 1: failed &#10007;</br>";
+                            if(1 === testTPS.getUndoSize())
+                                assertionString += "<br>Assertion:  tps.getUndoSize() === 1: passed &#10003;</br>";
+                            else
+                                assertionString += "<br>Assertion:  tps.getUndoSize(): === 1: failed &#10007;</br>";
+                            assertionString += "<br></br>";
+    
+                            testOrMaskDiv.innerHTML = assertionString;
+                            </script>
+                    </div>
+                </div>
+                <div id="assertion_testundo"> 
+                        <b>Assertions for Test Undo</b>
+                        <div id="testing_testundo">
+                            <script type="text/javascript">
+                                testNum = new Num();
+                                testTPS = new jTPS();
+                                assertionString = "";
+                                let testUndoDiv = document.getElementById("testing_testundo");
+                                assertionString = "<br> let num = new Num(); </br><br> let tps = new jTPS();</br>";
+                                if(0 === testNum.getNum())
+                                    assertionString += "<br>Assertion: num.getNum() === 0: passed &#10003;</br>"
+                                else
+                                    assertionString += "<br>Assertion: num.getNum() === 0: failed &#10007;</br>";
+                                if(!(testTPS.hasTransactionToUndo()))
+                                    assertionString += "<br>Assertion: tps.hasTransactionToUndo() === false: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.hasTransactionToUndo() === false: failed &#10007;</br>";
+                                if(!(testTPS.hasTransactionToRedo()))
+                                    assertionString += "<br>Assertion: tps.hasTransactionToRedo() === false: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.hasTransactionToRedo() === false: failed &#10007;</br>";
+
+                                
+                                
+                                testTPS.addTransaction(new AddToNum_Transaction(testNum, 5));
+                                assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 5));</b></br>";
+        
+                                testTPS.addTransaction(new AddToNum_Transaction(testNum, 10));
+                                assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 10));</b></br>";
+
+                                testTPS.addTransaction(new AddToNum_Transaction(testNum, 20));
+                                assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 20));</b></br>";
+                                
+                                if(testTPS.hasTransactionToUndo())
+                                    assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: failed &#10007;</br>";
+                                if(!(testTPS.hasTransactionToRedo()))
+                                    assertionString += "<br>Assertion: tps.hasTransactionToRedo() === false: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.hasTransactionToRedo() === false: failed &#10007;</br>";
+
+
+                                if(35 === testNum.getNum())
+                                    assertionString += "<br>Assertion: num.getNum() === 35: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: num.getNum() === 35: failed &#10007;</br>";
+                                if(3 === testTPS.getSize())
+                                    assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                if(0 === testTPS.getRedoSize())
+                                    assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion:  tps.getRedoSize(): === 0: failed &#10007;</br>";
+                                if(3 === testTPS.getUndoSize())
+                                    assertionString += "<br>Assertion:  tps.getUndoSize() === 3: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion:  tps.getUndoSize(): === 3: failed &#10007;</br>";
+                                
+                                testTPS.undoTransaction();
+                                assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                
+                                if(testTPS.hasTransactionToUndo())
+                                    assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: failed &#10007;</br>";
+                                if(testTPS.hasTransactionToRedo())
+                                    assertionString += "<br>Assertion: tps.hasTransactionToRedo() === true: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.hasTransactionToRedo() === true: failed &#10007;</br>";
+                                if(15 === testNum.getNum())
+                                    assertionString += "<br>Assertion: num.getNum() === 15: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: num.getNum() === 15: failed &#10007;</br>";
+                                if(3 === testTPS.getSize())
+                                    assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                if(1 === testTPS.getRedoSize())
+                                    assertionString += "<br>Assertion:  tps.getRedoSize() === 1: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion:  tps.getRedoSize(): === 1: failed &#10007;</br>";
+                                if(2 === testTPS.getUndoSize())
+                                    assertionString += "<br>Assertion:  tps.getUndoSize() === 2: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion:  tps.getUndoSize(): === 2: failed &#10007;</br>";
+                                
+                                testTPS.undoTransaction();
+                                assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                
+                                if(testTPS.hasTransactionToUndo())
+                                    assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: failed &#10007;</br>";
+                                if(testTPS.hasTransactionToRedo())
+                                    assertionString += "<br>Assertion: tps.hasTransactionToRedo() === true: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.hasTransactionToRedo() === true: failed &#10007;</br>";
+                                if(5 === testNum.getNum())
+                                    assertionString += "<br>Assertion: num.getNum() === 5: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: num.getNum() === 5: failed &#10007;</br>";
+                                if(3 === testTPS.getSize())
+                                    assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                if(2 === testTPS.getRedoSize())
+                                    assertionString += "<br>Assertion:  tps.getRedoSize() === 2: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion:  tps.getRedoSize(): === 2: failed &#10007;</br>";
+                                if(1 === testTPS.getUndoSize())
+                                    assertionString += "<br>Assertion:  tps.getUndoSize() === 1: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion:  tps.getUndoSize(): === 1: failed &#10007;</br>";
+                                
+                                testTPS.undoTransaction();
+                                assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                
+                                if(!(testTPS.hasTransactionToUndo()))
+                                    assertionString += "<br>Assertion: tps.hasTransactionToUndo() === false: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.hasTransactionToUndo() === false: failed &#10007;</br>";
+                                if(testTPS.hasTransactionToRedo())
+                                    assertionString += "<br>Assertion: tps.hasTransactionToRedo() === true: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.hasTransactionToRedo() === true: failed &#10007;</br>";
+                                if(0 === testNum.getNum())
+                                    assertionString += "<br>Assertion: num.getNum() === 0: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: num.getNum() === 0: failed &#10007;</br>";
+                                if(3 === testTPS.getSize())
+                                    assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                if(3 === testTPS.getRedoSize())
+                                    assertionString += "<br>Assertion:  tps.getRedoSize() === 3: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion:  tps.getRedoSize(): === 3: failed &#10007;</br>";
+                                if(0 === testTPS.getUndoSize())
+                                    assertionString += "<br>Assertion:  tps.getUndoSize() === 0: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion:  tps.getUndoSize(): === 0: failed &#10007;</br>";
+                                
+                                testTPS.undoTransaction();
+                                assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                
+                                if(!(testTPS.hasTransactionToUndo()))
+                                    assertionString += "<br>Assertion: tps.hasTransactionToUndo() === false: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.hasTransactionToUndo() === false: failed &#10007;</br>";
+                                if(testTPS.hasTransactionToRedo())
+                                    assertionString += "<br>Assertion: tps.hasTransactionToRedo() === true: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.hasTransactionToRedo() === true: failed &#10007;</br>";
+                                if(0 === testNum.getNum())
+                                    assertionString += "<br>Assertion: num.getNum() === 0: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: num.getNum() === 0: failed &#10007;</br>";
+                                if(3 === testTPS.getSize())
+                                    assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                if(3 === testTPS.getRedoSize())
+                                    assertionString += "<br>Assertion:  tps.getRedoSize() === 3: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion:  tps.getRedoSize(): === 3: failed &#10007;</br>";
+                                if(0 === testTPS.getUndoSize())
+                                    assertionString += "<br>Assertion:  tps.getUndoSize() === 0: passed &#10003;</br>";
+                                else
+                                    assertionString += "<br>Assertion:  tps.getUndoSize(): === 0: failed &#10007;</br>";
+
+                                assertionString += "<br></br>";
+        
+                                testUndoDiv.innerHTML = assertionString;
+                                </script>
+                        </div>
+                    </div>
+                    <div id="assertion_testredo"> 
+                            <b>Assertions for Test Redo</b>
+                            <div id="testing_testredo">
+                                <script type="text/javascript">
+                                    testNum = new Num();
+                                    testTPS = new jTPS();
+                                    assertionString = "";
+                                    let testRedoDiv = document.getElementById("testing_testredo");
+                                    assertionString = "<br> let num = new Num(); </br><br> let tps = new jTPS();</br>";
+                                    if(0 === testNum.getNum())
+                                        assertionString += "<br>Assertion: num.getNum() === 0: passed &#10003;</br>"
+                                    else
+                                        assertionString += "<br>Assertion: num.getNum() === 0: failed &#10007;</br>";
+            
+  
+                                    testTPS.addTransaction(new AddToNum_Transaction(testNum, 5));
+                                    assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 5));</b></br>";
+            
+                                    testTPS.addTransaction(new AddToNum_Transaction(testNum, 10));
+                                    assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 10));</b></br>";
+    
+                                    testTPS.addTransaction(new AddToNum_Transaction(testNum, 20));
+                                    assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 20));</b></br>";
+                                    
+                                    if(testTPS.hasTransactionToUndo())
+                                        assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: failed &#10007;</br>";
+                                    if(!(testTPS.hasTransactionToRedo()))
+                                        assertionString += "<br>Assertion: tps.hasTransactionToRedo() === false: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.hasTransactionToRedo() === false: failed &#10007;</br>";
+    
+    
+                                    if(35 === testNum.getNum())
+                                        assertionString += "<br>Assertion: num.getNum() === 35: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: num.getNum() === 35: failed &#10007;</br>";
+                                    if(3 === testTPS.getSize())
+                                        assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                    if(0 === testTPS.getRedoSize())
+                                        assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion:  tps.getRedoSize(): === 0: failed &#10007;</br>";
+                                    if(3 === testTPS.getUndoSize())
+                                        assertionString += "<br>Assertion:  tps.getUndoSize() === 3: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion:  tps.getUndoSize(): === 3: failed &#10007;</br>";
+                                    
+                                    testTPS.undoTransaction();
+                                    assertionString += "<br><b>tps.undoTransaction();</b></br>";
+
+                                    testTPS.doTransaction();
+                                    assertionString += "<br><b>tps.doTransaction();</b></br>";
+                                    
+                                    if(testTPS.hasTransactionToUndo())
+                                        assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: failed &#10007;</br>";
+                                    if(!(testTPS.hasTransactionToRedo()))
+                                        assertionString += "<br>Assertion: tps.hasTransactionToRedo() === false: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.hasTransactionToRedo() === false: failed &#10007;</br>";
+    
+    
+                                    if(35 === testNum.getNum())
+                                        assertionString += "<br>Assertion: num.getNum() === 35: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: num.getNum() === 35: failed &#10007;</br>";
+                                    if(3 === testTPS.getSize())
+                                        assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                    if(0 === testTPS.getRedoSize())
+                                        assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion:  tps.getRedoSize(): === 0: failed &#10007;</br>";
+                                    if(3 === testTPS.getUndoSize())
+                                        assertionString += "<br>Assertion:  tps.getUndoSize() === 3: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion:  tps.getUndoSize(): === 3: failed &#10007;</br>";
+                                    
+                                    testTPS.undoTransaction();
+                                    assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                    testTPS.undoTransaction();
+                                    assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                    testTPS.doTransaction();
+                                    assertionString += "<br><b>tps.doTransaction();</b></br>";
+                                    testTPS.doTransaction();
+                                    assertionString += "<br><b>tps.doTransaction();</b></br>";
+                                    
+                                    if(35 === testNum.getNum())
+                                        assertionString += "<br>Assertion: num.getNum() === 35: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: num.getNum() === 35: failed &#10007;</br>";
+                                    if(3 === testTPS.getSize())
+                                        assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                    if(0 === testTPS.getRedoSize())
+                                        assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion:  tps.getRedoSize(): === 0: failed &#10007;</br>";
+                                    if(3 === testTPS.getUndoSize())
+                                        assertionString += "<br>Assertion:  tps.getUndoSize() === 3: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion:  tps.getUndoSize(): === 3: failed &#10007;</br>";
+                                    
+                                    testTPS.undoTransaction();
+                                    assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                    testTPS.undoTransaction();
+                                    assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                    testTPS.undoTransaction();
+                                    assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                    testTPS.doTransaction();
+                                    assertionString += "<br><b>tps.doTransaction();</b></br>";
+                                    testTPS.doTransaction();
+                                    assertionString += "<br><b>tps.doTransaction();</b></br>";
+                                    testTPS.doTransaction();
+                                    assertionString += "<br><b>tps.doTransaction();</b></br>";
+                                    
+                                    if(35 === testNum.getNum())
+                                        assertionString += "<br>Assertion: num.getNum() === 35: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: num.getNum() === 35: failed &#10007;</br>";
+                                    if(3 === testTPS.getSize())
+                                        assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                    if(0 === testTPS.getRedoSize())
+                                        assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion:  tps.getRedoSize(): === 0: failed &#10007;</br>";
+                                    if(3 === testTPS.getUndoSize())
+                                        assertionString += "<br>Assertion:  tps.getUndoSize() === 3: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion:  tps.getUndoSize(): === 3: failed &#10007;</br>";
+                                    
+                                    testTPS.undoTransaction();
+                                    assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                    testTPS.undoTransaction();
+                                    assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                    testTPS.undoTransaction();
+                                    assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                    testTPS.doTransaction();
+                                    assertionString += "<br><b>tps.doTransaction();</b></br>";
+                                    testTPS.doTransaction();
+                                    assertionString += "<br><b>tps.doTransaction();</b></br>";
+                                    
+                                    if(testTPS.hasTransactionToUndo())
+                                        assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: failed &#10007;</br>";
+                                    if(testTPS.hasTransactionToRedo())
+                                        assertionString += "<br>Assertion: tps.hasTransactionToRedo() === true: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.hasTransactionToRedo() === true: failed &#10007;</br>";
+
+                                    if(15 === testNum.getNum())
+                                        assertionString += "<br>Assertion: num.getNum() === 15: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: num.getNum() === 15: failed &#10007;</br>";
+                                    if(3 === testTPS.getSize())
+                                        assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                    if(1 === testTPS.getRedoSize())
+                                        assertionString += "<br>Assertion:  tps.getRedoSize() === 1: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion:  tps.getRedoSize(): === 1: failed &#10007;</br>";
+                                    if(2 === testTPS.getUndoSize())
+                                        assertionString += "<br>Assertion:  tps.getUndoSize() === 2: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion:  tps.getUndoSize(): === 2: failed &#10007;</br>";
+                                    
+                                    testTPS.undoTransaction();
+                                    assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                    testTPS.undoTransaction();
+                                    assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                    testTPS.undoTransaction();
+                                    assertionString += "<br><b>tps.undoTransaction();</b></br>";
+                                    testTPS.doTransaction();
+                                    assertionString += "<br><b>tps.doTransaction();</b></br>";
+                                    testTPS.doTransaction();
+                                    assertionString += "<br><b>tps.doTransaction();</b></br>";
+                                    testTPS.doTransaction();
+                                    assertionString += "<br><b>tps.doTransaction();</b></br>";
+                                    testTPS.doTransaction();
+                                    assertionString += "<br><b>tps.doTransaction();</b></br>";
+
+                                    if(testTPS.hasTransactionToUndo())
+                                        assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.hasTransactionToUndo() === true: failed &#10007;</br>";
+                                    if(!(testTPS.hasTransactionToRedo()))
+                                        assertionString += "<br>Assertion: tps.hasTransactionToRedo() === false: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.hasTransactionToRedo() === false: failed &#10007;</br>";
+                                    if(35 === testNum.getNum())
+                                        assertionString += "<br>Assertion: num.getNum() === 35: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: num.getNum() === 35: failed &#10007;</br>";
+                                    if(3 === testTPS.getSize())
+                                        assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                    if(0 === testTPS.getRedoSize())
+                                        assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion:  tps.getRedoSize(): === 0: failed &#10007;</br>";
+                                    if(3 === testTPS.getUndoSize())
+                                        assertionString += "<br>Assertion:  tps.getUndoSize() === 3: passed &#10003;</br>";
+                                    else
+                                        assertionString += "<br>Assertion:  tps.getUndoSize(): === 3: failed &#10007;</br>";
+                                    assertionString += "<br></br>";
+            
+                                    testRedoDiv.innerHTML = assertionString;
+                                    </script>
+                            </div>
+                        </div>
+                        <div id="assertion_testclear"> 
+                                <b>Assertions for Test Clear</b>
+                                <div id="testing_testclear">
+                                    <script type="text/javascript">
+                                        testNum = new Num();
+                                        testTPS = new jTPS();
+                                        let testClearDiv = document.getElementById("testing_testclear");
+                                        assertionString = "<br> let num = new Num(); </br><br> let tps = new jTPS();</br>";
+                                        if(0 === testNum.getNum())
+                                            assertionString += "<br>Assertion: num.getNum() === 0: passed &#10003;</br>"
+                                        else
+                                            assertionString += "<br>Assertion: num.getNum() === 0: failed &#10007;</br>";
+                                        testTPS.addTransaction(new AddToNum_Transaction(testNum, 5));
+                                        assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 5));</b></br>";
+                                        testTPS.addTransaction(new AddToNum_Transaction(testNum, 10));
+                                        assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 10));</b></br>";
+                                        testTPS.addTransaction(new AddToNum_Transaction(testNum, 20));
+                                        assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 20));</b></br>";
+                                        if(35 === testNum.getNum())
+                                            assertionString += "<br>Assertion: num.getNum() === 35: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion: num.getNum() === 35: failed &#10007;</br>";
+                                        if(3 === testTPS.getSize())
+                                            assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                        if(0 === testTPS.getRedoSize())
+                                            assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion:  tps.getRedoSize(): === 0 failed &#10007;</br>";
+                                        if(3 === testTPS.getUndoSize())
+                                            assertionString += "<br>Assertion:  tps.getUndoSize() === 3: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion:  tps.getUndoSize(): === 3: failed &#10007;</br>";
+                                        
+                                        assertionString += "<br></br>";
+                                        testTPS.clearAllTransactions();
+                                        assertionString += "<br><b>tps.clearAllTransactions();</b></br>";
+                                        
+                                        if(35 === testNum.getNum())
+                                            assertionString += "<br>Assertion: num.getNum() === 35: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion: num.getNum() === 35: failed &#10007;</br>";
+                                        if(0 === testTPS.getSize())
+                                            assertionString += "<br>Assertion: tps.getSize() === 0: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion: tps.getSize() === 0: failed &#10007;</br>";
+                                        if(0 === testTPS.getRedoSize())
+                                            assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion:  tps.getRedoSize(): === 0 failed &#10007;</br>";
+                                        if(0 === testTPS.getUndoSize())
+                                            assertionString += "<br>Assertion:  tps.getUndoSize() === 0: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion:  tps.getUndoSize(): === 0: failed &#10007;</br>";
+                                        
+                                        assertionString += "<br></br>";
+                                        
+                                        testTPS.addTransaction(new AddToNum_Transaction(testNum, 5));
+                                        assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 5));</b></br>";
+                                        testTPS.addTransaction(new AddToNum_Transaction(testNum, 10));
+                                        assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 10));</b></br>";
+                                        testTPS.addTransaction(new AddToNum_Transaction(testNum, 20));
+                                        assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 20));</b></br>";
+                    
+                                        if( 70 === testNum.getNum())
+                                            assertionString += "<br>Assertion: num.getNum() === 70: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion: num.getNum() === 70: failed &#10007;</br>";
+                                        if(3 === testTPS.getSize())
+                                            assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                        if(0 === testTPS.getRedoSize())
+                                            assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion:  tps.getRedoSize(): === 0 failed &#10007;</br>";
+                                        if(3 === testTPS.getUndoSize())
+                                            assertionString += "<br>Assertion:  tps.getUndoSize() === 3: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion:  tps.getUndoSize(): === 3: failed &#10007;</br>";
+                                        testTPS.clearAllTransactions();
+                                        assertionString += "<br><b>tps.clearAllTransactions();</b></br>";
+                                        
+                                        if(70 === testNum.getNum())
+                                            assertionString += "<br>Assertion: num.getNum() === 70: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion: num.getNum() === 70: failed &#10007;</br>";
+                                        if(0 === testTPS.getSize())
+                                            assertionString += "<br>Assertion: tps.getSize() === 0: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion: tps.getSize() === 0: failed &#10007;</br>";
+                                        if(0 === testTPS.getRedoSize())
+                                            assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion:  tps.getRedoSize(): === 0 failed &#10007;</br>";
+                                        if(0 === testTPS.getUndoSize())
+                                            assertionString += "<br>Assertion:  tps.getUndoSize() === 0: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion:  tps.getUndoSize(): === 0: failed &#10007;</br>";
+                                        assertionString += "<br></br>"
+                                        
+                                        testTPS.addTransaction(new AddToNum_Transaction(testNum, 5));
+                                        assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 5));</b></br>";
+                                        testTPS.addTransaction(new AddToNum_Transaction(testNum, 10));
+                                        assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 10));</b></br>";
+                                        testTPS.addTransaction(new AddToNum_Transaction(testNum, 20));
+                                        assertionString += "<br><b>tps.addTransaction(new AddToNum_Transaction(num, 20));</b></br>";
+                    
+                                        if( 105 === testNum.getNum())
+                                            assertionString += "<br>Assertion: num.getNum() === 105: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion: num.getNum() === 105: failed &#10007;</br>";
+                                        if(3 === testTPS.getSize())
+                                            assertionString += "<br>Assertion: tps.getSize() === 3: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion: tps.getSize() === 3: failed &#10007;</br>";
+                                        if(0 === testTPS.getRedoSize())
+                                            assertionString += "<br>Assertion:  tps.getRedoSize() === 0: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion:  tps.getRedoSize(): === 0 failed &#10007;</br>";
+                                        if(3 === testTPS.getUndoSize())
+                                            assertionString += "<br>Assertion:  tps.getUndoSize() === 3: passed &#10003;</br>";
+                                        else
+                                            assertionString += "<br>Assertion:  tps.getUndoSize(): === 3: failed &#10007;</br>";
+
+
+                                        assertionString += "<br></br>";
+                                        testClearDiv.innerHTML = assertionString;
+                                        </script>
+                                </div>
+                            </div>
+        
+            
+        </div>
+
+       
+
+
+</body>
+    
+
+
+</html>
